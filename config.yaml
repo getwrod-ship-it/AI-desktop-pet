@@ -1,0 +1,73 @@
+# AI 桌面宠物配置文件
+
+# Ollama 服务配置
+ollama:
+  base_url: "http://localhost:11434"
+
+# 模型配置
+models:
+  vision:
+    name: "minicpm-v:latest"
+    options:
+      num_predict: 200
+      temperature: 0.3
+
+  language:
+    name: "qwen2.5:3b"
+    options:
+      num_predict: 100
+      temperature: 0.7
+
+# 屏幕捕获配置
+screen:
+  monitor: 1                    # 显示器索引（1 为主显示器）
+  capture_interval: 1           # 截图间隔（秒）
+  change_threshold: 0.05        # 变化检测阈值（5%）
+
+# 上下文配置
+context:
+  max_screen_history: 50        # 保留最近的屏幕理解事件数
+  max_dialog_history: 50        # 保留最近的对话轮数
+  db_path: "./data/context.db"  # 数据库存储路径
+
+  # 记忆系统配置
+  memory:
+    # 时间窗口
+    recent_window_minutes: 10        # 近期上下文时间窗口（分钟）
+    compress_interval_minutes: 10    # 压缩间隔（分钟）
+
+    # 保留策略
+    keep_recent_dialogs: 5           # 压缩时保留的完整对话数（摘要中）
+    keep_recent_screens: 5           # 压缩时保留的完整屏幕事件数（摘要中）
+    max_recent_dialogs: 100          # 近期上下文最大对话数
+    max_recent_screens: 100          # 近期上下文最大屏幕事件数
+
+    # 历史保留
+    keep_history_days: 30            # 压缩历史保留天数
+    max_history_slots: 100           # 最大历史时间段数
+
+    # 压缩触发
+    compress_trigger_count: 50       # 触发压缩的数据数量阈值
+
+  # 用户画像配置
+  user_profile:
+    work_pattern_min_samples: 5      # 学习工作模式的最小样本数
+    app_importance_threshold: 10     # 应用重要性阈值
+    dialog_style_update_rate: 0.1    # 对话风格更新速率
+    topic_interest_decay: 0.05       # 话题兴趣衰减率
+
+  # 桌宠画像配置
+  pet_profile:
+    preset: "penguin_curious"        # 预设名称: penguin_curious, cat_lazy, robot_assistant
+    familiarity_increment: 0.01      # 每次交互增加的熟悉度
+    familiarity_max: 1.0             # 最大熟悉度
+    topic_expertise_increment: 0.05  # 话题熟练度增量
+    topic_expertise_max: 1.0         # 最大熟练度
+    mood_decay_rate: 0.1             # 每小时情绪衰减率
+    mood_min_level: 0.2              # 最小情绪值
+
+# 宠物配置
+pet:
+  name: "鹅鹅"
+  position: [100, 100]          # 初始位置 [x, y]
+  bubble_duration: 5000         # 气泡显示时长（毫秒）
